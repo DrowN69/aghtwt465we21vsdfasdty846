@@ -5,7 +5,6 @@ const Canvas = require("canvas");
 const path = require('path');
 const jimp = require("jimp");
 const yt = require('ytdl-core');
-        const sql = require('sqlite')
         const ms = require("ms");
 
 client.on('ready', () => {
