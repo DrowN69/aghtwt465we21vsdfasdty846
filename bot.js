@@ -98,8 +98,8 @@ const w = ['./w1.png'];
                         ctx.textAlign = "center";
                         ctx.fillText(``, 300, 130);
 
-                        ctx.font = "bold 26px Arial";
-                        ctx.fontSize = '21px';
+                        ctx.font = "bold 23px Arial";
+                        ctx.fontSize = '19px';
                         ctx.fillStyle = "#f1f1f1";
                         ctx.textAlign = "center";
                         ctx.fillText(member.user.username, 240, 210);
