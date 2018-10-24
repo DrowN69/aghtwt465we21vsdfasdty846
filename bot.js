@@ -40,7 +40,7 @@ function forEachObject(obj, func) {
 client.on("ready", () => {
     var guild;
     while (!guild)
-        guild = client.guilds.find("name", "sisi")
+        guild = client.guilds.find("name", "TRUTH RX")
     guild.fetchInvites().then((data) => {
         data.forEach((Invite, key, map) => {
             var Inv = Invite.code;
@@ -49,7 +49,7 @@ client.on("ready", () => {
     })
 })
 client.on("guildMemberAdd", (member) => {
-    let channel = member.guild.channels.find('name', 'sisi');
+    let channel = member.guild.channels.find('name', 'truth');
     if (!channel) {
         console.log("!channel fails");
         return;
@@ -60,7 +60,7 @@ client.on("guildMemberAdd", (member) => {
     console.log('made it till here!');
     var guild;
     while (!guild)
-        guild = client.guilds.find("name", "sisi")
+        guild = client.guilds.find("name", "TRUTH RX")
     guild.fetchInvites().then((data) => {
         data.forEach((Invite, key, map) => {
             var Inv = Invite.code;
@@ -68,7 +68,8 @@ client.on("guildMemberAdd", (member) => {
                 if (dat[Inv] < Invite.uses) {
                     console.log(3);
                     console.log(`${member} joined over ${Invite.inviter}'s invite ${Invite.code}`)
- channel.send(`** Invited By :  ${Invite.inviter}  **`)            
+ channel.send(`**#Welcome To  Server Truth..:yellow_heart:**
+**Invited By :  ${Invite.inviter}  **`)            
  }
             dat[Inv] = Invite.uses;
         })
