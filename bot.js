@@ -1,21 +1,12 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const hero = new Discord.Client();
-const editedcodes = new Discord.Client();
 const fs = require("fs");
 const Canvas = require("canvas");
 const path = require('path');
 const jimp = require("jimp");
-const moment = require('moment');
 const yt = require('ytdl-core');
-const https = require('https');
-const fetch = require('node-fetch');
         const sql = require('sqlite')
         const ms = require("ms");
-const agent = new https.Agent({ keepAlive: true});
-const slowMode = new Discord.Client();
-const cool = [];
-const prefix = '-'
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -42,6 +33,7 @@ client.user.setGame("Truth Rx <3");
   console.log('')
   console.log('')
 });
+  
 
 const devs = ["228174175007801354","474523379530203146"];
 const adminprefix = ["-"];
@@ -139,30 +131,47 @@ welcomer.sendFile(canvas.toBuffer())
  
 });
 
-const invites = {};
-const wait = require('util').promisify(setTimeout);
-client.on('ready', () => {
-  wait(10000)
-
-  client.guilds.forEach(g => {
-    g.fetchInvites().then(guildInvites => {
-      invites[g.id] = guildInvites;
-    });
-  });
+var dat = JSON.parse("{}");
+function forEachObject(obj, func) {
+    Object.keys(obj).forEach(function (key) { func(key, obj[key]) })
+}
+client.on("ready", () => {
+    var guild;
+    while (!guild)
+        guild = client.guilds.find("name", "TRUTH RX")
+    guild.fetchInvites().then((data) => {
+        data.forEach((Invite, key, map) => {
+            var Inv = Invite.code;
+            dat[Inv] = Invite.uses;
+        })
+    })
+})
+client.on("guildMemberAdd", (member) => {
+    let channel = member.guild.channels.find('name', 'truth');
+    if (!channel) {
+        console.log("!channel fails");
+        return;
+    }
+    if (member.id == client.user.id) {
+        return;
+    }
+    console.log('made it till here!');
+    var guild;
+    while (!guild)
+        guild = client.guilds.find("name", "TRUTH RX")
+    guild.fetchInvites().then((data) => {
+        data.forEach((Invite, key, map) => {
+            var Inv = Invite.code;
+            if (dat[Inv])
+                if (dat[Inv] < Invite.uses) {
+                    console.log(3);
+                    console.log(`${member} joined over ${Invite.inviter}'s invite ${Invite.code}`)
+ channel.send(`**#Welcome To  Server Truth..:yellow_heart:**
+**Invited By :  ${Invite.inviter}  **`)            
+ }
+            dat[Inv] = Invite.uses;
+        })
+    })
 });
-client.on('guildMemberAdd', member => {
-  wait(10000)
-  member.guild.fetchInvites().then(guildInvites => {
-    const ei = invites[member.guild.id];
-    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-    const inviter = client.users.get(invite.inviter.id);
-    const yumz = member.guild.channels.find("name", "truth");
-     yumz.send(`**#Welcome To  Server Truth..:yellow_heart:** 
-**<@${inviter.id}> تمت الدعوه من قبل <@${member.user.id}>**`);
-   //  yumz.send(`<@${member.user.id}> joined using invite code ${invite.code} from <@${inviter.id}>. Invite was used ${invite.uses} times since its creation.`);
-});
-});   
-
-
 
 client.login(process.env.BOT_TOKEN);
