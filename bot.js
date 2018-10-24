@@ -68,8 +68,7 @@ client.on("guildMemberAdd", (member) => {
                 if (dat[Inv] < Invite.uses) {
                     console.log(3);
                     console.log(`${member} joined over ${Invite.inviter}'s invite ${Invite.code}`)
- channel.send(`**#Welcome To  Server Truth..:yellow_heart:**
-**Invited By :  ${Invite.inviter}  **`)            
+ channel.send(`** Invited By :  ${Invite.inviter}  **`)            
  }
             dat[Inv] = Invite.uses;
         })
